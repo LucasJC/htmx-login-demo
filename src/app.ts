@@ -8,11 +8,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // serve static content
 app.use("/", express.static(path.join(__dirname, "public")));
 
+app.use("/forbidden", function (req: express.Request, res: express.Response) {
+  res.status(403).send({});
+});
+
 app.use("/api/login", function (req: express.Request, res: express.Response) {
   // here we would retrieve user from database and compare passwords
   if (req.body.email === "valid@email.com" && req.body.password === "password") {
     setTimeout( () => {
-      res.status(302);
       res.setHeader("HX-Redirect", "/home.html");
       res.send("Logged in. Redirecting to home...");
     }, 2000);
