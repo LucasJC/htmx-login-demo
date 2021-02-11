@@ -17,17 +17,18 @@ app.use("/api/login", function (req: express.Request, res: express.Response) {
     setTimeout(() => {
       res.status(500).send("Internal error :(");
     }, 1000);
-  } else if (req.body.email === "valid@email.com" && req.body.password === "password") {
+  // here we would retrieve user and compare given password with persisted one
+  } else if (req.body.email === "valid@email.com" && req.body.password !== "") {
     setTimeout( () => {
       res.setHeader("HX-Redirect", "/home.html");
       res.send("Logged in. Redirecting to home...");
-    }, 2000);
+    }, 1500);
 
   } else {
     setTimeout(() => {
       const message = "Invalid credentials";
       res.send(`<div id="error" class="notification is-danger"><button class="delete" _="on click remove #error"></button>${message}</div>`);
-    }, 2000);
+    }, 1500);
   }
 });
 

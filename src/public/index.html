@@ -16,12 +16,12 @@
         hx-target="#message" 
         _="on htmx:responseError call alert('Error received: ' + event.detail.xhr.response) end
         on htmx:sendError call alert('Communication error :(') end"
-        style="background-color: paleturquoise;">
+        style="background-color: rgb(147, 201, 252);">
         
         <div class="field">
           <label class="label">Email</label>
           <div class="control">
-            <input class="input" type="email" name="email" placeholder="e.g. alex@example.com">
+            <input class="input" type="email" name="email" placeholder="valid@email.com">
           </div>
         </div>
 
@@ -33,13 +33,13 @@
         </div>
 
         <div class="field">
-          <label class="label">Simulate server error</label>
+          <label class="label">Receive error response</label>
           <div class="control">
             <input class="checkbox" type="checkbox" name="error">
           </div>
         </div>
 
-        <button class="button is-primary">Log in</button>
+        <button class="button is-info">Log in</button>
         <img class="htmx-indicator" src="/img/puff.svg" />
       </form>
       <div id="message">
