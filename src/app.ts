@@ -13,8 +13,11 @@ app.use("/forbidden", function (req: express.Request, res: express.Response) {
 });
 
 app.use("/api/login", function (req: express.Request, res: express.Response) {
-  // here we would retrieve user from database and compare passwords
-  if (req.body.email === "valid@email.com" && req.body.password === "password") {
+  if (req.body.error) {
+    setTimeout(() => {
+      res.status(500).send("Internal error :(");
+    }, 1000);
+  } else if (req.body.email === "valid@email.com" && req.body.password === "password") {
     setTimeout( () => {
       res.setHeader("HX-Redirect", "/home.html");
       res.send("Logged in. Redirecting to home...");
@@ -23,7 +26,7 @@ app.use("/api/login", function (req: express.Request, res: express.Response) {
   } else {
     setTimeout(() => {
       const message = "Invalid credentials";
-      res.send(`<div class="notification is-danger" >${message}</div>`);
+      res.send(`<div id="error" class="notification is-danger"><button class="delete" _="on click remove #error"></button>${message}</div>`);
     }, 2000);
   }
 });

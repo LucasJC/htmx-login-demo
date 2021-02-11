@@ -3,25 +3,42 @@
   <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <script src="https://unpkg.com/htmx.org@1.1.0" integrity="sha384-JVb/MVb+DiMDoxpTmoXWmMYSpQD2Z/1yiruL8+vC6Ri9lk6ORGiQqKSqfmCBbpbX" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/hyperscript.org@0.0.3"></script>
   </head>
   <title>Log In</title>
   <body>
     <div class="container p-4">
       <h1 class="title">Login Demo</h1>
       <h2 class="subtitle">Using htmx</h2>
-      <form class="box" hx-post="/api/login" hx-target="#message" style="background-color: paleturquoise;">
+
+      <form class="box" 
+        hx-post="/api/login" 
+        hx-target="#message" 
+        _="on htmx:responseError call alert('Error received: ' + event.detail.xhr.response) end
+        on htmx:sendError call alert('Communication error :(') end"
+        style="background-color: paleturquoise;">
+        
         <div class="field">
           <label class="label">Email</label>
           <div class="control">
             <input class="input" type="email" name="email" placeholder="e.g. alex@example.com">
           </div>
         </div>
+
         <div class="field">
           <label class="label">Password</label>
           <div class="control">
             <input class="input" type="password" name="password" placeholder="********">
           </div>
         </div>
+
+        <div class="field">
+          <label class="label">Simulate server error</label>
+          <div class="control">
+            <input class="checkbox" type="checkbox" name="error">
+          </div>
+        </div>
+
         <button class="button is-primary">Log in</button>
         <img class="htmx-indicator" src="/img/puff.svg" />
       </form>
@@ -29,6 +46,6 @@
         <!-- message placeholder -->
       </div>
     </div>
-    <button hx-get="/forbidden">Forbidden page</button>
+
   </body>
 </html>
